@@ -40,7 +40,8 @@ INSTALLED_APPS = [
       #Registering My Apps
     'category.apps.CategoryConfig',
     'accounts.apps.AccountsConfig',
-    'store.apps.StoreConfig'
+    'store.apps.StoreConfig',
+    'carts.apps.CartsConfig',
 ]
 
 MIDDLEWARE = [
@@ -68,7 +69,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
                 'category.context_processors.menu_links',
+                'carts.context_processors.counter',
               
             ],
         },
