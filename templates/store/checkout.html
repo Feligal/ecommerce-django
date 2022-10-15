@@ -6,92 +6,98 @@
     <div class="container">
     
     <!-- ============================ COMPONENT 1 ================================= -->
-
+    <form action="{% url 'place_order' %}" method="POST">
+        {% csrf_token %}  
         <div class="row">
         <aside class="col-lg-6">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title mb-4">Billing Address</h4>
-            <form action="" method="POST">
-                {% csrf_token %}
-                <div class="form-row">
-                    <div class="col form-group">
-                        <label for="">First Name</label>
-                        <input type="text" name="first_name" class="form-control" required>
-                    </div>
+            <div class="card"> 
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Choose Payment Method</h5>                                                                                         
+                        <div class="form-row">
+                            <div class="col form-group">
+                                <input type="radio"  value="VISA" id="VISA" onclick="javascript:selectPayment();" name="payment_method"  required/>Visa Card
+                            </div>
 
-                    <div class="col form-group">
-                        <label for="">Last Name</label>
-                        <input type="text" name="last_name" class="form-control" required>
-                    </div>
-                </div>
+                            <div class="col form-group">
+                                <input type="radio"  value="AIRTEL" id="AIRTEL" onclick="javascript:selectPayment();" name="payment_method"  required/>Airtel Money
+                            </div>
 
-                <div class="form-row">
-                    <div class="col form-group">
-                        <label for="">Email Address</label>
-                        <input type="email" name="email" class="form-control" required>
-                    </div>
-
-                    <div class="col form-group">
-                        <label for="">Phone Number</label>
-                        <input type="text" name="phone" class="form-control" required>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="col form-group">
-                        <label for="">Address Line 1</label>
-                        <input type="text" name="address_line_1" class="form-control" required>
-                    </div>
-
-                    <div class="col form-group">
-                        <label for="">Address Line 2</label>
-                        <input type="text" name="address_line_2" class="form-control">
-                    </div>
-                </div>
-
-                    <div class="form-row">
-                        <div class="col form-group">
-                            <label for="">City</label>
-                            <input type="text" name="city" class="form-control" required>
-                        </div>
-    
-                        <div class="col form-group">
-                            <label for="">State</label>
-                            <input type="text" name="state" class="form-control" required>
+                            <div class="col form-group">
+                                <input type="radio" value="MTN" id="MTN" onclick="javascript:selectPayment();" name="payment_method" required/>MTN Money
+                            </div>
                         </div>
 
-                        <div class="col form-group">
-                            <label for="">Country</label>
-                            <input type="text" name="country" class="form-control" required>
-                        </div>
-                    </div>
+                        <div class="card">
+                            <div id="ifMTN"  style="display: none;" class="card-body">   
+                                <h3>MTN</h3>
+                                <div  class="form-row">
+                                    <div class="col form-group">
+                                        <label for="">Phone Number</label>
+                                        <input type="text" name="phone" maxlength="10" class="form-control">
+                                    </div>
+                                    <div class="col form-group col-md-3">
+                                        <label for="">PIN</label>
+                                        <input type="text" name="pin" maxlength="5" class="form-control">
+                                    </div>                      
+                                </div>
+                            </div>
 
-                    <div class="form-row">
-                        <label for="">Order Note</label>
-                        <textarea class="form-control" name="order_note" id="" rows="2">
-                        </textarea>
-                    </div>
-                   
 
-                
-         
-        </div>
-    </div> <!-- card.// -->
-    
+                            <div id="ifAIRTEL" style="display: none;"  class="card-body">   
+                                <h3>Aitel</h3>
+                                <div  class="form-row">
+                                    <div class="col form-group">
+                                        <label for="">Phone Number</label>
+                                        <input type="text" name="phone" maxlength="10" class="form-control">
+                                    </div>
+                                    <div class="col form-group col-md-3">
+                                        <label for="">PIN</label>
+                                        <input type="text" name="pin" maxlength="5" class="form-control">
+                                    </div>                      
+                                </div>
+                            </div>
+
+                            
+                            <div id="ifVISA" style="display: none;" class="card-body">   
+                                <h3>VISA</h3>
+                                <div  class="form-row">
+                                <div class="col form-group">
+                                    <label for="">Name on Card</label>
+                                    <input type="text" name="card_name" maxlength="50" class="form-control">
+                                </div>
+                                <div class="col form-group">
+                                    <label for="">Card Number</label>
+                                    <input type="text" name="card_number" maxlength="20" class="form-control">
+                                </div>
+                                
+                                </div>            
+                                <div class="form-row">                            
+                                <div class="col form-group col-md-3">
+                                    <label for="">Expiration</label>
+                                    <input type="text" name="expiration" class="form-control">
+                                </div>
+                                <div class="col form-group col-md-3">
+                                    <label for="">CVC</label>
+                                    <input type="text" name="cvc" maxlength="3" class="form-control">
+                                </div>
+                                </div>     
+                            </div>
+                        </div>                           
+                    
+                      
+                    <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-block" name="submit">Place Order</button>                                                           
+                </div>
+            </div> <!-- card.// -->        
         </aside> <!-- col.// -->
-        <aside class="col-lg-6">
-    
+        <aside class="col-lg-6">    
             <div class="card">
-            <div class="card-body">
-               
+            <div class="card-body">               
                 <table class="table table-borderless table-shopping-cart">
                     <thead class="text-muted">
                     <tr class="small text-uppercase">
                       <th scope="col">Product</th>
                       <th scope="col" width="120">Quantity</th>
-                      <th scope="col" width="120">Price</th>
-                     
+                      <th scope="col" width="120">Price</th>                     
                     </tr>
                     </thead>
                     <tbody>
@@ -122,21 +128,45 @@
                     </tbody>
                     </table>     
 
-               
-                <button type="submit"  class="btn btn-primary btn-block" name="submit">Place Order</button>
+                              
                 <a href="{% url 'store' %}" class="btn btn-light btn-block">Continue Shopping</a>
-            </form>
+            
             </div> <!-- card-body.// -->
             </div> <!-- card.// -->
         
     
-    </aside> <!-- col.// -->
+        </aside> <!-- col.// -->
     
     
         </div> <!-- row.// -->
         <!-- ============================ COMPONENT 1 END .// ================================= -->
+    </form>
+        </div> <!-- container .//  -->           
+        <script type="text/javascript">
+            function selectPayment(){
+                if(document.getElementById('MTN').checked){    
+                    console.log('MTN')                ;
+                    document.getElementById('ifMTN').style.display = 'block';
+                    document.getElementById('ifAIRTEL').style.display = 'none';
+                    document.getElementById('ifVISA').style.display = 'none';                    
+                }
+                
+                if(document.getElementById('AIRTEL').checked){        
+                    document.getElementById('ifAIRTEL').style.display = 'block';                        
+                    document.getElementById('ifMTN').style.display = 'none';                    
+                    document.getElementById('ifVISA').style.display = 'none';
+                }
         
-        </div> <!-- container .//  -->    
+                if(document.getElementById('VISA').checked){
+                    console.log('VISA')                ;
+                    document.getElementById('ifMTN').style.display = 'none';
+                    document.getElementById('ifAIRTEL').style.display = 'none';
+                    document.getElementById('ifVISA').style.display = 'block';
+                }
+            }
+        </script>
     </section>
 
 {% endblock %}
+
+

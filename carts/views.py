@@ -180,6 +180,7 @@ def checkout(request,total = 0 , quantity= 0 ,cart_items = None):
         
         tax = (16 * total) / 100
         grand_total = total + tax
+        
     except ObjectDoesNotExist:
         pass # ignore and do nothing
     context = {
@@ -189,5 +190,6 @@ def checkout(request,total = 0 , quantity= 0 ,cart_items = None):
         'tax' : tax,
         'grand_total' : grand_total,
     }
-
     return render(request, 'store/checkout.html', context)
+
+   

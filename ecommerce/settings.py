@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'store.apps.StoreConfig',
     'carts.apps.CartsConfig',
+    'orders.apps.OrdersConfig',
 ]
 
 MIDDLEWARE = [
@@ -147,23 +148,26 @@ MESSAGE_TAGS = {
 
 
 #SMTP Configurations
-"""
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.office365.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST_USER ='adminCAA@caa.co.zm'
+DEFAULT_FROM_EMAIL='adminCAA@caa.co.zm'
 EMAIL_HOST_PASSWORD = 'Sr@x2014'
 
-"""
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+
+"""EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 #EMAIL_USE_SSL = False
 EMAIL_HOST_USER ='yanni.technologies@gmail.com'
-EMAIL_HOST_PASSWORD = '$$FkMan1984ini'
+EMAIL_HOST_PASSWORD = '$$FkMan1984ini'"""
 
 
 # Default primary key field type

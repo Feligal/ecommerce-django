@@ -15,11 +15,12 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.core.mail import EmailMessage
+from django.core.mail import send_mail
+from django.conf import settings
 
 from carts.models import Cart, CartItem
 from carts.views import _cart_id
-import requests
+
 
 def register(request):
     if request.method =='POST':
@@ -44,8 +45,20 @@ def register(request):
                 'token': default_token_generator.make_token(user),
             })
             to_email = email
+            
+            """
             send_email =  EmailMessage(mail_subject,message, to=[to_email])
             send_email.send()
+            """
+            send_mail(
+                mail_subject,
+                message,
+                settings.EMAIL_HOST_USER,
+                [to_email],
+                fail_silently= False
+            )
+
+
             #messages.success(request, 'Thank you for registering with us. We have sent you a verification email  to your email address. Please verify it.')
             #return redirect('register')
             return redirect('/accounts/login/?command=verification&email='+ email)
@@ -106,7 +119,7 @@ def login(request):
             messages.success(request,'You are now logged in.')
             url = request.META.get('HTTP_REFERER')
             try:
-                query = requests.utils.urlparse(url).query
+                query = request.utils.urlparse(url).query
                 #next=/cart/checkout/
                 params = dict(x.split('=') for x in query.split('g'))
                 if 'next' in params:
